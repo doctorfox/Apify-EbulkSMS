@@ -7,7 +7,7 @@ $consoleinput = gzdecode(file_get_contents($keystore));
 $json_input = json_decode($consoleinput, true);
 
 //$filesindir = scandir('./');
-print_r($_ENV);print_r($consoleinput);pr($json_input);exit;
+print_r($_ENV);print_r($consoleinput);print_r($json_input);exit;
 $flash = 0;
 $time = strftime('%l:%M %p', time());
 $max_usd_rate = $json_input['max_usd_rate'];
