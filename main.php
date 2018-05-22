@@ -1,6 +1,6 @@
 <?php
 $json_url = "http://api.ebulksms.com:8080/sendsms.json";
-
+$token = '';
 $keystore = "https://api.apify.com/v2/key-value-stores/{$_ENV['APIFY_DEFAULT_KEY_VALUE_STORE_ID']}/records/INPUT?token={$token}&disableRedirect=1";
 
 $consoleinput = (doGetRequest($keystore));
