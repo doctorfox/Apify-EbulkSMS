@@ -24,15 +24,16 @@ $recipients = $json_input['telephone'];
 $pagefunctionresult = json_decode(file_get_contents($_ENV['crawler_url']), true);
 
 $message = substr("{$json_input['message']}{$pagefunctionresult[0]['pageFunctionResult']['rate']} on {$pagefunctionresult[0]['pageFunctionResult']['date']} at $time" , 0, 918);
-if(!empty($max_usd_rate) && $pagefunctionresult[0]['pageFunctionResult']['rate'] >= $max_usd_rate){
-    $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
-    echo $result;
+if(!empty($pagefunctionresult[0]['pageFunctionResult']['rate'])){
+    if(!empty($max_usd_rate) && $pagefunctionresult[0]['pageFunctionResult']['rate'] >= $max_usd_rate){
+        $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
+        echo $result;
+    }
+    if(!empty($min_usd_rate) && $pagefunctionresult[0]['pageFunctionResult']['rate'] <= $min_usd_rate){
+        $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
+        echo $result;
+    }
 }
-if(!empty($min_usd_rate) && $pagefunctionresult[0]['pageFunctionResult']['rate'] <= $min_usd_rate){
-    $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
-    echo $result;
-}
-
 
 function useJSON($url, $username, $apikey, $flash, $sendername, $messagetext, $recipients) {
     $gsm = array();
