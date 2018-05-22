@@ -2,6 +2,8 @@
 $json_url = "http://api.ebulksms.com:8080/sendsms.json";
 $json_input = json_decode(file('php://input'), true);
 $flash = 0;
+$time = strftime('%l:%M %p', time());
+$max_usd_rate = $json_input['max_usd_rate'];
 $username = $json_input['username'];
 $apikey = $json_input['apikey'];
 
@@ -10,8 +12,11 @@ $recipients = $json_input['telephone'];
 
 $pagefunctionresult = json_decode(file_get_contents($_ENV['crawler_url']), true);
 
-$message = substr("{$json_input['message']} {$pagefunctionresult[0]['pageFunctionResult']['date']} {$pagefunctionresult[0]['pageFunctionResult']['rate']}" , 0, 918);
-$result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
+$message = substr("{$json_input['message']} {$pagefunctionresult[0]['pageFunctionResult']['rate']} on {$pagefunctionresult[0]['pageFunctionResult']['date']} at {$time}" , 0, 918);
+if($pagefunctionresult[0]['pageFunctionResult']['rate'] >= $max_usd_rate){
+    $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
+    echo $result;
+}
 
 
 function useJSON($url, $username, $apikey, $flash, $sendername, $messagetext, $recipients) {
