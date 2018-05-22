@@ -23,7 +23,7 @@ $recipients = $json_input['telephone'];
 
 $pagefunctionresult = json_decode(file_get_contents($_ENV['crawler_url']), true);
 
-$message = substr("{$json_input['message']} {$pagefunctionresult[0]['pageFunctionResult']['rate']} on {$pagefunctionresult[0]['pageFunctionResult']['date']} at $time" , 0, 918);
+$message = substr("{$json_input['message']}{$pagefunctionresult[0]['pageFunctionResult']['rate']} on {$pagefunctionresult[0]['pageFunctionResult']['date']} at $time" , 0, 918);
 if(!empty($max_usd_rate) && $pagefunctionresult[0]['pageFunctionResult']['rate'] >= $max_usd_rate){
     $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
     echo $result;
