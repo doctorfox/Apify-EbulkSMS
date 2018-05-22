@@ -6,7 +6,7 @@ $keystore = "https://api.apify.com/v2/key-value-stores/{$_ENV['APIFY_DEFAULT_KEY
 $consoleinput = (doGetRequest($keystore));
 $json_input = $consoleinput['body'];
 
-//print_r($_ENV);print_r($consoleinput);print_r($json_input);exit;
+print_r($_ENV);print_r($consoleinput);print_r($json_input);exit;
 $flash = 0;
 $time = strftime('%l:%M %p', time());
 $max_usd_rate = $json_input['max_usd_rate'];
