@@ -3,7 +3,7 @@ $json_url = "http://api.ebulksms.com:8080/sendsms.json";
 
 $keystore = "https://api.apify.com/v2/key-value-stores/{$_ENV['APIFY_DEFAULT_KEY_VALUE_STORE_ID']}/records/INPUT?token={$token}&disableRedirect=1";
 
-$consoleinput = gzdecode(file_get_contents($keystore));
+$consoleinput = (doGetRequest($keystore));
 $json_input = json_decode($consoleinput, true);
 
 //$filesindir = scandir('./');
@@ -85,5 +85,25 @@ function doPostRequest($url, $arr_params, $headers = array('Content-Type: applic
     $response['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     return $response['body'];
+}
+
+function doGetRequest($url, $arr_params = array()) {
+    $response = array();
+    $str_params = $arr_params;
+    if(!empty($arr_params) && is_array($arr_params)){
+        $str_params = http_build_query($str_params);
+    }
+    $final_url = empty($str_params) ? $url : $url . '?' . implode('&', $str_params);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $final_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_ENCODING , "gzip");
+    curl_setopt($ch, CURLOPT_ENCODING, "");
+    $response['body'] = curl_exec($ch);
+    $response['code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return $response;
 }
 ?>
