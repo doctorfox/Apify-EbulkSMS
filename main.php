@@ -2,6 +2,7 @@
 $json_url = "http://api.ebulksms.com:8080/sendsms.json";
 //$json_input = json_decode(file('php://input'), true);
 $json_input = file('php://input');
+print_r($json_input);
 $flash = 0;
 $time = strftime('%l:%M %p', time());
 $max_usd_rate = $json_input['max_usd_rate'];
