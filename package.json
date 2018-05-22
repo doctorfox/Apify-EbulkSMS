@@ -1,0 +1,17 @@
+{
+  "name": "act-send-sms",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+  },
+  "keywords": [
+    "bulksms",
+    "forex",
+    "fx",
+    "ebulksms"
+],
+  "devDependencies": {
+  },
+  "scripts": {
+  }
+}
