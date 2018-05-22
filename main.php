@@ -1,7 +1,7 @@
 <?php
 $json_url = "http://api.ebulksms.com:8080/sendsms.json";
 //$json_input = json_decode(file('php://input'), true);
-$json_input = file("php://input");
+$json_input = file("php://stdin");
 print_r($_ENV);print_r($argv);print_r($json_input);exit;
 $flash = 0;
 $time = strftime('%l:%M %p', time());
