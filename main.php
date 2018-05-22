@@ -7,9 +7,10 @@ $apikey = $json_input['apikey'];
 
 $sendername = substr($json_input['sender_name'], 0, 11);
 $recipients = $json_input['telephone'];
-$message = substr($json_input['message'], 0, 918);
 
-$pagefunctionresult = file_get_contents($_ENV['crawler_url']);
+$pagefunctionresult = json_decode(file_get_contents($_ENV['crawler_url']), true);
+
+$message = substr("{$json_input['message']} {$pagefunctionresult[0]['pageFunctionResult']['date']} {$pagefunctionresult[0]['pageFunctionResult']['rate']}" , 0, 918);
 $result = useJSON($json_url, $username, $apikey, $flash, $sendername, $message, $recipients);
 
 
