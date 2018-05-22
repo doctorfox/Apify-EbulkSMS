@@ -8,7 +8,7 @@ $json_input = json_decode($consoleinput['body'], true);;
 
 //print_r($_ENV);print_r($consoleinput);print_r($json_input);exit;
 $flash = 0;
-$time = strftime('%l:%M %p', time());
+$time = strftime('%l:%M %p', time() + 3600);//GMT +1:00 Timezone, 0 DST
 $max_usd_rate = $json_input['max_usd_rate'];
 $min_usd_rate = $json_input['min_usd_rate'];
 //$max_gbp_rate = $json_input['max_gbp_rate'];
