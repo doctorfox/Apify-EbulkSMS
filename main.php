@@ -1,13 +1,13 @@
 <?php
 $json_url = "http://api.ebulksms.com:8080/sendsms.json";
-//$json_input = json_decode(file('php://input'), true);
-//$json_input = file("php://stdin");phpinfo();
-//$_ENV['APIFY_DEFAULT_KEY_VALUE_STORE_ID'];
-$keystore = "https://api.apify.com/v2/key-value-stores/{$_ENV['APIFY_DEFAULT_KEY_VALUE_STORE_ID']}/INPUT";
-$consoleinput = file_get_contents($keystore);
+
+$keystore = "https://api.apify.com/v2/key-value-stores/{$_ENV['APIFY_DEFAULT_KEY_VALUE_STORE_ID']}/records/INPUT?token={$token}&disableRedirect=1";
+
+$consoleinput = gzdecode(file_get_contents($keystore));
+$json_input = json_decode($consoleinput, true);
 
 //$filesindir = scandir('./');
-print_r($_ENV);print_r($argv);print_r($consoleinput);exit;
+print_r($_ENV);print_r($consoleinput);pr($json_input);exit;
 $flash = 0;
 $time = strftime('%l:%M %p', time());
 $max_usd_rate = $json_input['max_usd_rate'];
